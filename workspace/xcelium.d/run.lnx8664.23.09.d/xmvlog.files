@@ -1,0 +1,12 @@
+//
+// File created by:  xrun
+// Do not modify this file
+//
+/home/cc/Documents/AXI_2_APB_bridge_verification/APB/apb_pkg.sv
+/home/cc/Documents/AXI_2_APB_bridge_verification/APB/apb_if.sv
+/home/cc/Documents/AXI_2_APB_bridge_verification/DUT/Bridge_CP.sv
+/home/cc/Documents/AXI_2_APB_bridge_verification/DUT/Bridge_DP.sv
+/home/cc/Documents/AXI_2_APB_bridge_verification/DUT/Bridge_Complete.sv
+/home/cc/Documents/AXI_2_APB_bridge_verification/tb/clkgen.sv
+/home/cc/Documents/AXI_2_APB_bridge_verification/tb/hw_top.sv
+/home/cc/Documents/AXI_2_APB_bridge_verification/tb/tb_top.sv
