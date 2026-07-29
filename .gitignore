@@ -1,4 +1,5 @@
-workspace/
+workspace/*
+!workspace/file.f
 *.log
 xrun.history
 xcelium.d

@@ -16,7 +16,6 @@
 ../DUT/Bridge_DP.sv
 ../DUT/Bridge_Complete.sv
 
-../tb/clkgen.sv
 ../tb/hw_top.sv
 ../tb/tb_top.sv
 
