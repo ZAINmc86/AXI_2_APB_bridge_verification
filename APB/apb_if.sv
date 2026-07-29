@@ -1,7 +1,5 @@
-
-interface apb_if (input clk, input rst);
+interface apb_if(input clk, input rst);
     import uvm_pkg::*;
-    import apb_pkg::*;
 
     `include "uvm_macros.svh"
     
@@ -18,28 +16,31 @@ interface apb_if (input clk, input rst);
     logic                       PREADY;    //input port to rtl
     logic [DATA_WIDTH-1:0]      PRDATA;    //input port to rtl
 
-    modport slave_mp (     
-        input  clk,          
-        input  rst,
+    modport driver_mp (
+        input clk, 
+        input rst,
+        //Output From DUT
         input  PTRANSFER,
         input  PWRITE,
         input  PADDR,
         input  PWDATA,
         input  PSTRB,
-        output  PRDATA,           
-        output  PREADY
+        //Input to DUT
+        output PRDATA,           
+        output PREADY
     );
 
-    modport driver_mp (
-      
-        input  clk,          
-        input  rst,
-        output  PTRANSFER,
-        output  PWRITE,
-        output  PADDR,
-        output  PWDATA,
-        output  PSTRB,
-        input  PRDATA,           
-        input  PREADY
+    modport monitor_mp (
+        input clk, 
+        input rst,
+        //Output From DUT
+        input  PTRANSFER,
+        input  PWRITE,
+        input  PADDR,
+        input  PWDATA,
+        input  PSTRB,
+        //Input to DUT
+        input PRDATA,           
+        input PREADY
     );
 endinterface : apb_if

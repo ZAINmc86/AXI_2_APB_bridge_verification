@@ -10,15 +10,15 @@ module hw_top;
     Bridge_Complete #(32,32) u_bridge (
         .PCLK               (clock),
         .PRESET             (reset),
-        .req_fifo_empty     (),
-        .req_fifo_rd_data   (),
+        .req_fifo_empty     (1'b0),
+        .req_fifo_rd_data   (33'd0),
         .req_fifo_rd_en     (),
         .wr_fifo_empty      (),
         .wr_fifo_rd_data    (),
         .wr_fifo_rd_en      (),
         .rd_fifo_wr_en      (),
         .rd_fifo_wr_data    (),
-        .rd_fifo_full       (),
+        .rd_fifo_full       (1'b0),
         .PTRANSFER          (apb.PTRANSFER),
         .PWRITE             (apb.PWRITE),
         .PADDR              (apb.PADDR),
@@ -28,9 +28,15 @@ module hw_top;
         .PRDATA             (apb.PRDATA)
     );
 
-    clkgen clkgen (.clock(clock), .run_clock(run_clock), .clock_period(clock_period));
+    initial begin
+        clock = 0;
+        forever #(clock_period/2) clock = ~clock;
+    end
 
     initial begin
-
+        reset = 0;   
+        #100;
+        reset = 1;
+        #10;         
     end
 endmodule

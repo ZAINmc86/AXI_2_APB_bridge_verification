@@ -1,0 +1,6 @@
+workspace/
+*.log
+xrun.history
+xcelium.d
+qaLog.txt
+xmsim*

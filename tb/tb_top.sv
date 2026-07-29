@@ -9,8 +9,8 @@ module top;
     hw_top hwtop(.*);
 
     initial begin
-        apb_vif_config::set(null, "*.tb.env.agent.monitor","vif", hwtop.apb);
-        ap_vif_config::set(null, "*.tb.env.agent.driver","vif", hwtop.apb);
+        apb_mon_vif_config::set(null, "*.tb.APB_env.agent.monitor","vif", hwtop.apb);
+        apb_drv_vif_config::set(null, "*.tb.APB_env.agent.driver","vif", hwtop.apb);
         run_test();
     end
 endmodule : top

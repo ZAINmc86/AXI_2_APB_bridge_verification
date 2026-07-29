@@ -4,7 +4,7 @@ import uvm_pkg::*;
 class bridge_tb extends uvm_env;
     `uvm_component_utils(bridge_tb)
 
-    apb_env env;   
+    apb_env APB_env;   
 
     function new(string name = "bridge_tb", uvm_component parent);
         super.new(name, parent);
@@ -12,7 +12,7 @@ class bridge_tb extends uvm_env;
 
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
-        env = apb_env::type_id::create("env", this);
+        APB_env = apb_env::type_id::create("APB_env", this);
         `uvm_info(get_type_name(), "Build Phase of Testbench executed!", UVM_HIGH)
     endfunction
 

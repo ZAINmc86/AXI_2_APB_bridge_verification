@@ -1,4 +1,4 @@
-class apb_packet extends uvm_sequence_item;
+class axi_to_apb_packet extends uvm_sequence_item;
 
     localparam int ADDR_WIDTH = 32;
     localparam int DATA_WIDTH = 32;
@@ -12,7 +12,7 @@ class apb_packet extends uvm_sequence_item;
     bit                  ready;          // PREADY (0 = wait state, 1 = complete)
     bit [DATA_WIDTH-1:0] rdata;         // Valid only for reads
 
-    `uvm_object_utils_begin(apb_packet)
+    `uvm_object_utils_begin(axi_to_apb_packet)
         `uvm_field_int(write, UVM_ALL_ON)
         `uvm_field_int(addr,  UVM_ALL_ON)
         `uvm_field_int(wdata, UVM_ALL_ON)
@@ -21,7 +21,7 @@ class apb_packet extends uvm_sequence_item;
         `uvm_field_int(rdata, UVM_ALL_ON)
     `uvm_object_utils_end
 
-    function new(string name = "apb_packet");
+    function new(string name = "axi_to_apb_packet");
         super.new(name);
     endfunction
 
@@ -57,4 +57,4 @@ class apb_packet extends uvm_sequence_item;
     function bit is_read();
         return !write;
     endfunction
-endclass : apb_packet
+endclass : axi_to_apb_packet
