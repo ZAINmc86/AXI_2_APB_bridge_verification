@@ -37,12 +37,12 @@ class apb_monitor extends uvm_monitor;
 
                 pkt.addr  = vif.PADDR;
                 pkt.write = vif.PWRITE;
-                pkt.wdata = vif.PWDATA;   // Valid for writes (ignored for reads)
+                pkt.data = vif.PWDATA;   // Valid for writes (ignored for reads)
                 pkt.strb  = vif.PSTRB;    // Valid for writes (ignored for reads)
 
                 `uvm_info(get_type_name(),
-                    $sformatf("SETUP phase: addr=0x%0h, write=%b, wdata=0x%0h, strb=0x%0h",
-                            pkt.addr, pkt.write, pkt.rdata, pkt.strb),
+                    $sformatf("SETUP phase: addr=0x%0h, write=%b, data=0x%0h, strb=0x%0h",
+                            pkt.addr, pkt.write, pkt.data, pkt.strb),
                     UVM_HIGH)
 
                 @(posedge vif.clk);

@@ -6,19 +6,23 @@ class axi_to_apb_packet extends uvm_sequence_item;
 
     rand bit                  write;             // 1 = Write, 0 = Read
     rand bit [ADDR_WIDTH-1:0] addr;
-    rand bit [DATA_WIDTH-1:0] wdata;            // Valid only for writes
+    rand bit [DATA_WIDTH-1:0] data;            // Valid only for writes
     rand bit [STRB_WIDTH-1:0] strb;            // Byte strobes (write mask)
 
     bit                  ready;          // PREADY (0 = wait state, 1 = complete)
     bit [DATA_WIDTH-1:0] rdata;         // Valid only for reads
+    bit [1:0] resp;                     // Response Channel
+    bit read;                         // Read/Write Identification
 
     `uvm_object_utils_begin(axi_to_apb_packet)
         `uvm_field_int(write, UVM_ALL_ON)
         `uvm_field_int(addr,  UVM_ALL_ON)
-        `uvm_field_int(wdata, UVM_ALL_ON)
+        `uvm_field_int(data, UVM_ALL_ON)
         `uvm_field_int(strb,  UVM_ALL_ON)
         `uvm_field_int(ready, UVM_ALL_ON)
         `uvm_field_int(rdata, UVM_ALL_ON)
+        `uvm_field_int(resp, UVM_ALL_ON)
+        `uvm_field_int(read, UVM_ALL_ON)
     `uvm_object_utils_end
 
     function new(string name = "axi_to_apb_packet");
@@ -29,6 +33,8 @@ class axi_to_apb_packet extends uvm_sequence_item;
         addr inside { [0:2**ADDR_WIDTH-1] };
     }
 
+    constraint addr_align_c { addr % 4 == 0; }
+
     constraint c_strb_valid {
         write -> (strb != 0);
     }
@@ -37,24 +43,23 @@ class axi_to_apb_packet extends uvm_sequence_item;
         !write -> (strb == 0);
     }
 
-    function string convert2string();
-        string s;
-        s = super.convert2string();
-        s = {s, $sformatf("\n  APB Packet:"),
-             $sformatf("\n    Type   : %s", write ? "WRITE" : "READ"),
-             $sformatf("\n    Addr   : 0x%0h", addr),
-             $sformatf("\n    Wdata  : 0x%0h", wdata),
-             $sformatf("\n    Strb   : 0x%0h", strb),
-             $sformatf("\n    Ready  : %0d", ready),
-             $sformatf("\n    Rdata  : 0x%0h", rdata)};
-        return s;
-    endfunction
+    function void do_print(uvm_printer printer);
+        super.do_print(printer);
 
-    function bit is_write();
-        return write;
-    endfunction
+        printer.print_field("WRITE",write,1,UVM_BIN);
 
-    function bit is_read();
-        return !write;
+        printer.print_field("ADDR",addr,32,UVM_HEX);
+
+        printer.print_field("DATA",data,32,UVM_HEX);
+
+        printer.print_field("STRB",strb,4,UVM_BIN);
+
+        printer.print_field("RESP",resp,2,UVM_BIN);
+
+        printer.print_field("READY",ready,1,UVM_BIN);
+
+        printer.print_field("RDATA",rdata,32,UVM_HEX);
+
+        printer.print_field("READ",read,1,UVM_BIN);
     endfunction
 endclass : axi_to_apb_packet

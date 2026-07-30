@@ -52,10 +52,10 @@ class apb_driver extends uvm_driver #(axi_to_apb_packet);
 
                     `uvm_info(get_type_name(),
                         $sformatf("READ got item: addr=0x%0h, rdata=0x%0h",
-                                  pkt.addr, pkt.wdata),
+                                  pkt.addr, pkt.data),
                         UVM_MEDIUM)
 
-                    vif.PRDATA <= pkt.wdata;
+                    vif.PRDATA <= pkt.data;
                     vif.PREADY <= 1'b1;
                     
                     @(negedge vif.clk);
